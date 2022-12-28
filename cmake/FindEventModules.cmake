@@ -4,7 +4,7 @@ if(NOT TARGET event-modules)
     FetchContent_Declare(
             event-modules
             GIT_REPOSITORY https://github.com/PolymorphEngine/event-modules.git
-            GIT_TAG feature/firstVersion
+            GIT_TAG dev
     )
 
     FetchContent_MakeAvailable(event-modules)
