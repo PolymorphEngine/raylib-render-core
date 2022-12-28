@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.20)
 set(CMAKE_CXX_STANDARD 20)
 set(EXECUTABLE_OUTPUT_PATH ../)
 
-project(plugin-template)
+project(raylib-render-core)
 set(NAMESPACE polymorph)
 
 if (${CMAKE_SOURCE_DIR} EQUAL ${PROJECT_NAME})
@@ -19,6 +19,12 @@ endif()
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
 
 include(cmake/FindPolymorphEngine.cmake)
+
+include(cmake/FindEventModules.cmake)
+include(cmake/FindRaylib.cmake)
+include(cmake/FindRenderModules.cmake)
+get_target_property(render-modules-icls render-modules INTERFACE_INCLUDE_DIRECTORIES)
+get_target_property(event-modules-icls event-modules INTERFACE_INCLUDE_DIRECTORIES)
 
 file(GLOB_RECURSE SCRIPTS_SRC scripts/src/*.cpp)
 file(GLOB_RECURSE SCRIPTS_ICL scripts/include/*.hpp)
@@ -41,9 +47,11 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 )
 target_include_directories(${PROJECT_NAME} PUBLIC
         includeExport
-)
+        ${event-modules-icls}
+        ${render-modules-icls}
+        )
 
-target_link_libraries(${PROJECT_NAME} PolymorphEngine)
+target_link_libraries(${PROJECT_NAME} PolymorphEngine raylib)
 set_target_properties(${PROJECT_NAME} PROPERTIES POSITION_INDEPENDENT_CODE ON)
 
 if(WIN32)
