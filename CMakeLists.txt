@@ -53,6 +53,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 
 target_link_libraries(${PROJECT_NAME} PolymorphEngine raylib)
 set_target_properties(${PROJECT_NAME} PROPERTIES POSITION_INDEPENDENT_CODE ON)
+set_target_properties(raylib PROPERTIES POSITION_INDEPENDENT_CODE ON)
 
 if(WIN32)
     # MSVC
